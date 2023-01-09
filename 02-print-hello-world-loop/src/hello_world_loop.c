@@ -12,7 +12,7 @@ int main() {
       printf("1.Print 100 times\n");
       printf("2.Select number of times to print\n");
       printf("3.Exit");
-      printf("\nEnter Your choice : ");
+      printf("\n\nEnter Your choice : ");
       fflush(stdin);
       scanf("%d",&choice);
       int i=1;
@@ -30,7 +30,7 @@ int main() {
                };
                t_final = clock();
                segundos = (double) (t_final-t_inicio) /CLOCKS_PER_SEC;
-               printf("Spent time: %f s. to print %d times \n ",segundos, (i-1));
+               printf("\n Spent time: %f s. to print %d times \n\n",segundos, (i-1));
                break;
             case 2:
                t_inicio = clock();
@@ -42,7 +42,7 @@ int main() {
                };
                t_final = clock();
                segundos = (double) (t_final-t_inicio) /CLOCKS_PER_SEC;
-               printf("Spent time: %f s. to print %d times \n ",segundos, (i-1));
+               printf("\n Spent time: %f s. to print %d times \n\n",segundos, (i-1));
                break;
             case 3:
                 exit(1);
