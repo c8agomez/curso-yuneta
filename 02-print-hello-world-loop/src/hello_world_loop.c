@@ -2,17 +2,54 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
-
-
+#include <time.h>
 
 int main() {
 
-   int i=1;
-   while(i <=100){
-      printf("%d Hello World\n", i);
-      i++;
-   }
+   int choice;
 
+   while(1) {
+      printf("1.Print 100 times\n");
+      printf("2.Select number of times to print\n");
+      printf("3.Exit");
+      printf("\nEnter Your choice : ");
+      fflush(stdin);
+      scanf("%d",&choice);
+      int i=1;
+      int n;
+      clock_t t_inicio, t_final;
+      double segundos;
+
+      switch(choice)
+        {
+            case 1:
+               t_inicio = clock();
+               while(i <=100){
+                  printf("%d Hello World\n", i);
+                  i++;
+               };
+               t_final = clock();
+               segundos = (double) (t_final-t_inicio) /CLOCKS_PER_SEC;
+               printf("Spent time: %f s. to print %d times \n ",segundos, (i-1));
+               break;
+            case 2:
+               t_inicio = clock();
+               printf("\nEnter number of times:");
+               scanf("%d",&n);
+               while(i <=n){
+                  printf("%d Hello World\n", i);
+                  i++;
+               };
+               t_final = clock();
+               segundos = (double) (t_final-t_inicio) /CLOCKS_PER_SEC;
+               printf("Spent time: %f s. to print %d times \n ",segundos, (i-1));
+               break;
+            case 3:
+                exit(1);
+            default:
+                printf("Invalid Input!!!\n");
+        }
+    }
    return 0;
 }
+
