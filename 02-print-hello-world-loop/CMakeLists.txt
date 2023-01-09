@@ -38,14 +38,14 @@ endif(HAVE_REGEX_H)
 #   Source
 ##############################################
 
-SET (01_course
+SET (02_course
     src/hello_world_loop.c
 )
 
 ##############################################
 # 
 ##############################################
-ADD_EXECUTABLE(hello_world ${01_course})
+ADD_EXECUTABLE(hello_world ${02_course})
 
 ##############################################
 #   Installation
