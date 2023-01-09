@@ -6,9 +6,9 @@ cmake_minimum_required(VERSION 3.0)
 include(CheckIncludeFiles)
 include(CheckSymbolExists)
 
-set(CMAKE_INSTALL_PREFIX /home/yuneta/curso-yuneta/02-print-hello-world-loop)
+set(CMAKE_INSTALL_PREFIX /home/yuneta/curso-yuneta)
 
-set(BIN_DEST_DIR ${CMAKE_INSTALL_PREFIX})
+set(BIN_DEST_DIR ${CMAKE_INSTALL_PREFIX}/runfile)
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -std=c99")
 
@@ -45,13 +45,13 @@ SET (02_course
 ##############################################
 # 
 ##############################################
-ADD_EXECUTABLE(hello_world ${02_course})
+ADD_EXECUTABLE(hello_world02 ${02_course})
 
 ##############################################
 #   Installation
 ##############################################
 install(
-    TARGETS    
+    TARGETS hello_world02
     PERMISSIONS
     OWNER_READ OWNER_WRITE OWNER_EXECUTE
     GROUP_READ GROUP_WRITE GROUP_EXECUTE
