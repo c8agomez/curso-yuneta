@@ -1,7 +1,7 @@
 ##############################################
 #   CMake
 ##############################################
-project(01_Course C)
+project(02_Course C)
 cmake_minimum_required(VERSION 3.0)
 include(CheckIncludeFiles)
 include(CheckSymbolExists)
