@@ -8,7 +8,7 @@ include(CheckSymbolExists)
 
 set(CMAKE_INSTALL_PREFIX /home/yuneta/curso-yuneta/)
 
-set(BIN_DEST_DIR ${CMAKE_INSTALL_PREFIX}/runfile)
+set(BIN_DEST_DIR ${CMAKE_INSTALL_PREFIX}/bin)
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -std=c99")
 
@@ -58,4 +58,15 @@ install(
     WORLD_READ WORLD_EXECUTE
     DESTINATION ${BIN_DEST_DIR}
 )
+
+# compile in Release mode optimized but adding debug symbols, useful for profiling :
+#
+#     cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo ..
+#
+# or compile with NO optimization and adding debug symbols :
+#
+#     cmake -DCMAKE_BUILD_TYPE=Debug ..
+#
+# Compilando para ARM poner cmake -DNOT_INCLUDE_LIBUNWIND
+#
 
