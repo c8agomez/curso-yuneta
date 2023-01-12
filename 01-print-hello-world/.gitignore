@@ -1,9 +1,0 @@
-*.kdev4
-*~
-build/
-
-*.swp
-
- ../*.kdev4
-
-./.kdev4/
