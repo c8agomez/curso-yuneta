@@ -5,6 +5,6 @@
 
 int main()
 {
-   printf("Hello World in C\n");
-   return 0;
+	printf("Hello World in C\n");
+	return 0;
 }
