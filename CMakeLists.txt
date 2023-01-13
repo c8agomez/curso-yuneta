@@ -6,7 +6,7 @@ cmake_minimum_required(VERSION 3.0)
 include(CheckIncludeFiles)
 include(CheckSymbolExists)
 
-set(CMAKE_INSTALL_PREFIX /home/yuneta/curso-yuneta)
+set(CMAKE_INSTALL_PREFIX /yuneta/development/projects/curso-yuneta/carlos-ochoa)
 
 set(BIN_DEST_DIR ${CMAKE_INSTALL_PREFIX})
 
