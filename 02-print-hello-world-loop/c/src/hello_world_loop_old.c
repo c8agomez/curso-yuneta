@@ -6,21 +6,17 @@
 #include <time.h>
 #include <sys/time.h>
 
-/* Devuelve "a - b" en segundos */
-double timeval_diff(struct timeval *a, struct timeval *b)
-{
-  return
-    (double)(a->tv_sec + (double)a->tv_usec/1000000) -
-    (double)(b->tv_sec + (double)b->tv_usec/1000000);
+float time_diff2(struct timespec *start, struct timespec *end){
+	return (end->tv_sec - start->tv_sec) + 1e-9*(end->tv_nsec - start->tv_nsec);
 }
-
 
 int main(int argc, char *argv[])
 {
-	struct timeval t_ini, t_fin;
+	struct timespec t_ini;
+    struct timespec t_fin;
 	double seconds;
 
-	gettimeofday(&t_ini, NULL);
+	clock_gettime(CLOCK_REALTIME, &t_ini);
 
 	int count_loop;
 
@@ -34,10 +30,11 @@ int main(int argc, char *argv[])
 		printf("%d Hello World\n", i);
 	};
 
-	gettimeofday(&t_fin, NULL);
+	clock_gettime(CLOCK_REALTIME, &t_fin);
 
-	seconds = timeval_diff(&t_fin, &t_ini);
-	printf("\n Spent time: %f s. to print %d times \n\n",seconds, (count_loop));
+	seconds=time_diff2(&t_ini, &t_fin)
+
+	printf("\n Spent time: %0.8f s. to print %d times \n\n",seconds, (count_loop));
 
 	return 0;
 }
