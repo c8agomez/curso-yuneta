@@ -39,7 +39,7 @@ endif(HAVE_REGEX_H)
 ##############################################
 
 SET (02_course
-    src/hello_world_loop.c
+    src/hello_world_loop_02.c
 )
 
 SET (COURSE_HDRS
