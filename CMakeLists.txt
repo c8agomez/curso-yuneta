@@ -10,6 +10,7 @@ cmake_minimum_required(VERSION 3.0)
 ##############################################
 add_subdirectory(01-print-hello-world/c)
 add_subdirectory(02-print-hello-world-loop/c)
+add_subdirectory(03-print-hello-name-loop/c)
 
 # compile in Release mode optimized but adding debug symbols, useful for profiling :
 #
