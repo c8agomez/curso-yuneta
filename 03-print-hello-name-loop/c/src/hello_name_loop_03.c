@@ -35,7 +35,7 @@ static char doc[] =
     "Hello name 03 -- a program with options and arguments using argp. Greets the name you enter n times";
 
 /* A description of the arguments we accept. */
-static char args_doc[] = "ARG1";  /*Nombre que vamos a pasar*/
+static char args_doc[] = "NAME";  /*Nombre que vamos a pasar*/
 
 /* The options */
 static struct argp_option options[] = {
@@ -112,7 +112,7 @@ static inline void make_loop(int count_loop, char *name)
 
     gettimeofday(&t_ini, NULL);
 
-    for(int i=0; i <= count_loop; i++) {
+    for(int i=1; i <= count_loop; i++) {
         printf("Hello %s!\n", name);
     };
 

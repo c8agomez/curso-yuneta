@@ -122,7 +122,7 @@ int main(int argc, char *argv[])
 
     gettimeofday(&t_ini, NULL);
 
-    for(int i=0; i <= count_loop; i++) {
+    for(int i=1; i <= count_loop; i++) {
         printf("%d Hello World\n", i);
     };
 
