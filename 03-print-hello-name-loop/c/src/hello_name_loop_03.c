@@ -1,5 +1,5 @@
 /***********************************************************************
-*       Second task: Print "Hello World loop in C
+*       Third task: Print "Hello Name loop in C
 ***********************************************************************/
 #include <stdio.h>
 #include <inttypes.h>
