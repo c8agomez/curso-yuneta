@@ -4,6 +4,8 @@ build/
 bin/
 *.swp
 
- ../*.kdev4
+node_modules/ 
+ 
+../*.kdev4
 
 ./.kdev4/
