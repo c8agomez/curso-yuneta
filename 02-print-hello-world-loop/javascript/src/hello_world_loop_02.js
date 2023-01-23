@@ -16,8 +16,6 @@ function main() {
     .option('-r, --repeat <REPEAT>', 'N times repeat "Hello world". (Default=100)', parseInt)
     .parse(process.argv);
 
-  program.parse();
-
   const options = program.opts();
 
   if (options.repeat) {
@@ -31,7 +29,6 @@ function main() {
   for (let i=1;i<=repeat; i++) {
       console.log('Hello World',i);
   }
-
 //Fin tiempo
   const end = process.hrtime(start);
 
