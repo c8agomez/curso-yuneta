@@ -13,7 +13,7 @@ function main() {
     .description('Hello world loop')
     .version('1.0.0')
     .usage('[-h] [-v] [-r REPEAT]')
-    .option('-r, --repeat <REPEAT>', 'N times repeat "Hello world". (Default=100', parseInt)
+    .option('-r, --repeat <REPEAT>', 'N times repeat "Hello world". (Default=100)', parseInt)
     .parse(process.argv);
 
   program.parse();

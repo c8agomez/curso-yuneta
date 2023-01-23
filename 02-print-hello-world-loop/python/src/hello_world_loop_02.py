@@ -55,7 +55,7 @@ if __name__ == '__main__':
     parser.add_argument(
         '-r',
         '--repeat',
-        help="N times repeat"
+        help="N times repeat Hello world. (Default=100)"
     )
 
     parser.add_argument(
