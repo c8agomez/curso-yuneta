@@ -23,17 +23,21 @@ function main() {
   }
 
 //Inicio tiempo
-  const start = process.hrtime();
-
+//   const start = process.hrtime(); TODO pendiente revisar fórmula
+  const NS_PER_SEC = 1e9;
+  const MS_PER_NS = 1e-6
+  const time = process.hrtime();
 // bucle
   for (let i=1;i<=repeat; i++) {
       console.log('Hello World',i);
   }
 //Fin tiempo
-  const end = process.hrtime(start);
+//   const end = process.hrtime(start); TODO pendiente revisar fórmula
 
 //Impresión tiempo tardado
-  console.log(`Spent time ${(end[0] +(end[1]/1000000)).toFixed(3)}s. to print ${repeat} times.`)
+//   console.log(`Spent time ${(end[0] +(end[1]/1000000)).toFixed(3)}s. to print ${repeat} times.`) TODO pendiente revisar fórmula
+  const diff = process.hrtime(time);
+  console.log(`Spent time ${ (((diff[0] * NS_PER_SEC + diff[1])  * MS_PER_NS)/1000).toFixed(3) } s. to print ${repeat} times.`)
 }
 
 main ();
