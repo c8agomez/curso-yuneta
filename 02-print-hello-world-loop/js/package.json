@@ -1,0 +1,13 @@
+{
+    "name": "hello_world_loop_02",
+    "version": "1.0.0",
+    "title": "Hello World loop - 02",
+    "description": "Hello world with N times repeat (Default=100).",
+    "author": {
+        "name"   : "Carlos",
+        "email"  : "carlos8agomez@gmail.com"
+    },
+    "dependencies": {
+        "commander": "^10.0.0"
+    }
+}

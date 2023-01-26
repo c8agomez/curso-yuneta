@@ -1,7 +1,8 @@
 Proceso
 =======
 
-En esta tarea se imprime por defecto 100 veces o el número de veces que le pasemos por comando. Por defecto sería::
+En esta tarea se imprime por defecto 100 veces o el número de veces que le pasemos por comando.
+Por defecto sería::
 
     cd /yuneta/development/projects/curso-yuneta/carlos-ochoa/02-print-hello-world-loop/python/src
     ./hello_world_loop_02.py
