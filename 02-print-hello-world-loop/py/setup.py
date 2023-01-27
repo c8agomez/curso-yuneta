@@ -16,8 +16,6 @@ try:
 except IOError:
     README = CHANGES = ''
 
-from web_skeleton3 import __version__
-
 setup(
     name='hello_world_loop_02',
     version="1.0.0",
@@ -30,7 +28,7 @@ setup(
     tests_require=[],
     entry_points={
         'console_scripts': [
-            'hello_world_loop_02 = hello_world_loop_02.__main__:main'
+            'hello_world_loop_02 = hello_world_loop_02:main'
         ]
     },
 )
