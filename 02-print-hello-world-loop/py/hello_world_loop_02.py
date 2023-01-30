@@ -9,6 +9,7 @@ version = "1.0.0"
 #       Code
 #---------------------------------------#
 import time
+import argparse
 
 #-----------------------------------------------#
 # Mide tiempo
@@ -46,7 +47,6 @@ def hello_loop_d():
 #   Main
 #-----------------------------------------------#
 if __name__ == '__main__':
-    import argparse
     parser = argparse.ArgumentParser(
         description="Hello world loop"
     )
