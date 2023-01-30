@@ -21,6 +21,7 @@ def main():
     parser = argparse.ArgumentParser(
         description=" Program that connect to a tcp port and send data"
     )
+    parser.version = 'listenconnect_1.0.0'
 
     group1 = parser.add_argument_group('options for execution')
     group1.add_argument(
@@ -38,9 +39,8 @@ def main():
         default=TCP_IP
     )
     group1.add_argument(
-        "MESSAGE",
-        help="MESSAGE to send",
-        type=str
+        "FILE",
+        help="File content to send"
     )
 
     parser.add_argument(
@@ -57,13 +57,17 @@ def main():
         TCP_PORT = args.port
     if args.ip:
         TCP_IP= args.ip
-    listenconnect(TCP_PORT, TCP_IP, args.MESSAGE)
+
+    # Fichero
+    with open(args.FILE, "rb") as f:
+        file_content = f.read()
+
+    listenconnect(TCP_PORT, TCP_IP, file_content)
 
 ##########################
 #      Conection
 ##########################
-def listenconnect(TCP_PORT, TCP_IP, MESSAGE):
-
+def listenconnect(TCP_PORT, TCP_IP, file_content):
     # Socket object
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
@@ -71,7 +75,7 @@ def listenconnect(TCP_PORT, TCP_IP, MESSAGE):
     s.connect((TCP_IP, TCP_PORT))
 
     # Send data
-    s.sendall(MESSAGE.encode())
+    s.sendall(file_content)
 
     # Close the socket
     s.close()
