@@ -19,7 +19,7 @@ except IOError:
 setup(
     name='listenconnect',
     version="1.0.0",
-    description='Listen in a tcp port and send data',
+    description='Listen in a tcp port and send file',
     author='c8agomez',
     author_email='carlos8agomez@gmail.com',
     packages=find_packages(),
