@@ -65,34 +65,41 @@ def main():
 ##########################
 #      Conection
 ##########################
-def listenconnect(TCP_PORT, TCP_IP, FILES):
-    # Socket object
+def listenconnect(port, ip, FILES):
+
+    # Create a socket object
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-    # Connect
-    s.connect((TCP_IP, TCP_PORT))
-    # Fichero
-    # open the list to be sent
+    # Connect to the server
+    s.connect((ip, port))
+
     # open list files to be sent
     files = open(FILES, "rb")
 
-    listFile=files.read().decode().split("\n")
+    list_File=files.read().split("\n")
 
     files.close()
 
-    for i, file_path in enumerate(listFile):
+    for i, filepath in enumerate(list_File):
 
-        if file_path !=  "":
-            print("Send: ", file_path)
+        if filepath !=  "":
+            print("Send:", list_File[i])
 
             try:
                 # open the file to be sent and send
-                with open(file_path, 'rb') as f:
-                    file_data = (file_path+'\0').encode() + f.read()
+                with open(filepath, 'rb') as f:
+                    file_data = (filepath+'\0').encode() + f.read()
                     s.sendall(file_data)
-            except:
+                # receive confirmation
+                if(i < len(list_File)-1):
+                    confirmation = s.recv(1024)
+                    print("Received")
+
+            except FileNotFoundError:
                 print("The file is not found\n")
 
+    # close the socket and file
+    #s.close()
 
 ##########################
 # main

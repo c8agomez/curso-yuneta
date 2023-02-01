@@ -110,6 +110,17 @@ void on_close(uv_handle_t* handle) {
 }
 
 /*******************************************************************
+ *  After write
+ *******************************************************************/
+
+void after_write(uv_write_t *req, int status) {
+  if (status) {
+    fprintf(stderr, "Write error %s\n", uv_strerror(status));
+  }
+  free(req);
+}
+
+/*******************************************************************
  *  Read data
  *******************************************************************/
 void on_read(uv_stream_t *client, ssize_t nread, const uv_buf_t *buf)
@@ -138,6 +149,12 @@ void on_read(uv_stream_t *client, ssize_t nread, const uv_buf_t *buf)
         fclose(fp);
 
         printf("Received %d bytes and saved as %s\n", (int)nread, file_path);
+
+
+        uv_write_t *req = malloc(sizeof(uv_write_t));
+        uv_buf_t buf = uv_buf_init("OK\n", 3);
+        uv_write(req, (uv_stream_t *)client, &buf, 1, after_write);
+
   }
     free(buf->base);
 }
