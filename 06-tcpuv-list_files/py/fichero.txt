@@ -1,1 +1,3 @@
 Prueba de envío de datos
+con varios ficheros o con uno solo.
+Si no enviamos fichero dará error.

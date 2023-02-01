@@ -28,20 +28,21 @@ def main():
     group1.add_argument(
         "-p",
         "--port",
-        help="define port to use (default port=7000)",
+        help="Define port to use (default port=7000)",
         type=int,
         default=TCP_PORT
     )
     group1.add_argument(
         "-i",
         "--ip",
-        help="define ip to use (default ip=127.0.0.1)",
+        help="Define ip to use (default ip=127.0.0.1)",
         type=str,
         default=TCP_IP
     )
     group1.add_argument(
         "FILES",
-        help="Files content to send",
+        help="List of files or file to send.(Example:file1.txt file2.txt file3.txt or file1.txt) ",
+        nargs='+',
         type=str
     )
 
@@ -74,16 +75,10 @@ def listenconnect(port, ip, FILES):
     s.connect((ip, port))
 
     # open list files to be sent
-    files = open(FILES, "rb")
-
-    list_File=files.read().split("\n")
-
-    files.close()
-
-    for i, filepath in enumerate(list_File):
+    for i, filepath in enumerate(FILES):
 
         if filepath !=  "":
-            print("Send:", list_File[i])
+            print("Send: ", filepath)
 
             try:
                 # open the file to be sent and send
@@ -91,15 +86,14 @@ def listenconnect(port, ip, FILES):
                     file_data = (filepath+'\0').encode() + f.read()
                     s.sendall(file_data)
                 # receive confirmation
-                if(i < len(list_File)-1):
+                if(i < len(FILES)):
                     confirmation = s.recv(1024)
-                    print("Received")
 
             except FileNotFoundError:
                 print("The file is not found\n")
 
     # close the socket and file
-    #s.close()
+    s.close()
 
 ##########################
 # main
