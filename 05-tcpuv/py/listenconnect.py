@@ -1,10 +1,6 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 import argparse
 import socket
-
-TCP_IP = '127.0.0.1'
-TCP_PORT = 7000
-BUFFER_SIZE = 1024
 
 version = "1.0.0"
 
@@ -71,25 +67,39 @@ def listenconnect(TCP_PORT, TCP_IP, FILE):
     # Connect
     s.connect((TCP_IP, TCP_PORT))
 
+    # Get the local address of the socket
+    local_name = s.getsockname()
+    print("Local socket name:", local_name)
+
+    # Get the remote address of the socket
+    peer_name = s.getpeername()
+    print("Remote address:", peer_name)
+
+    # Fichero a enviar
+    print("Send file:", FILE)
+
+    file_name_len = len(FILE)
+    # Send the bytes to the remote endpoint
+    s.sendall(file_name_len.to_bytes(4, byteorder='big'))
+    s.sendall(FILE.encode())
+
+    # Wait confirmation
+    confirmation = s.recv(1024)
+    if (confirmation.decode()=="createOK"):
     # Fichero
     # open the file to be sent
-    file = open(FILE, "rb")
+        with open(FILE, 'rb') as f:
+            s.sendall(f.read())
 
-    # read the file and send it through the socket
-
-    with open(FILE, "rb") as f:
-        file_data = (FILE+'\0').encode() + file.read()
-        while file_data:
-            # Send data
-            s.sendall(file_data)
-            # Read file
-            file_data = file.read()
-
+        confirmation = s.recv(1024)
+        print(f'Send: {confirmation.decode()}')
+    else:
+        print("File exists is not sent")
     # Close the socket
     s.close()
 
-    # Close file
-    file.close()
+
+
 
 ##########################
 # main
