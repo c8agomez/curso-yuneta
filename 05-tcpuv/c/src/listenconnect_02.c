@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <uv.h>
+#include <fcntl.h>
 
 uv_tcp_t server;
 uv_loop_t *loop;
@@ -134,15 +135,21 @@ void on_read(uv_stream_t *client, ssize_t nread, const uv_buf_t *buf)
             file_name_len = ntohl(file_name_len);
             memcpy(file_name, buf->base + 4, file_name_len);
             file_name[file_name_len] = '\0';
-            /* Verificacion de existencia de archivo, si existe se borra y se crea de nuevo*/
-            if (remove(file_name) == 0) {
-                printf("File successfully removed\n");
+            /* Verificacion de existencia de archivo*/
+            if(access(file_name, F_OK) == 0) {
+                printf("File %s exists. \n", file_name);
+                /* Send Confirmation. */
+                uv_write_t *req = malloc(sizeof(uv_write_t));
+                uv_buf_t buf = uv_buf_init("createError\n", 13);
+                uv_write(req, (uv_stream_t *)client, &buf, 1, NULL);
+                file_name_len = 0;
+                file_len = 0;
             } else {
-                printf("File could not be removed\n");
+                printf("El archivo %s no existe\n", file_name);
+                uv_write_t *req = malloc(sizeof(uv_write_t));
+                uv_buf_t buf = uv_buf_init("createOK\n", 8);
+                uv_write(req, (uv_stream_t *)client, &buf, 1, NULL);
             }
-            uv_write_t *req = malloc(sizeof(uv_write_t));
-            uv_buf_t buf = uv_buf_init("createOK\n", 8);
-            uv_write(req, (uv_stream_t *)client, &buf, 1, NULL);
         } else if(file_len == 0) {
             memcpy(&file_len, buf->base, 4);
             file_len = ntohl(file_len);

@@ -41,12 +41,6 @@ def main():
     )
 
     parser.add_argument(
-        "--repeat",
-        type=int,
-        default=2,
-        help="Number of times to repeat the file to send")
-
-    parser.add_argument(
         '-v',
         '--version',
         action='version',
@@ -61,49 +55,51 @@ def main():
     if args.ip:
         TCP_IP= args.ip
 
-    listenconnect(TCP_PORT, TCP_IP, args.FILE, args.repeat)
+    listenconnect(TCP_PORT, TCP_IP, args.FILE)
 
 ##########################
 #      Conection
 ##########################
-def listenconnect(TCP_PORT, TCP_IP, FILE,repeat):
-    for i in range(repeat):
-        # Socket object
-        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+def listenconnect(TCP_PORT, TCP_IP, FILE):
+    # Socket object
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-        # Connect
-        s.connect((TCP_IP, TCP_PORT))
+    # Connect
+    s.connect((TCP_IP, TCP_PORT))
 
-        # Get the local address of the socket
-        local_name = s.getsockname()
-        print("Local socket name:", local_name)
+    # Get the local address of the socket
+    local_name = s.getsockname()
+    print("Local socket name:", local_name)
 
-        # Get the remote address of the socket
-        peer_name = s.getpeername()
-        print("Remote address:", peer_name)
+    # Get the remote address of the socket
+    peer_name = s.getpeername()
+    print("Remote address:", peer_name)
 
-        # Fichero a enviar
-        print("Send file:", FILE)
+    # Fichero a enviar
+    print("Send file:", FILE)
 
-        file_name_len = len(FILE)
-        # Send the bytes to the remote endpoint
-        s.sendall(file_name_len.to_bytes(4, byteorder='big'))
-        s.sendall(FILE.encode())
+    file_name_len = len(FILE)
+    # Send the bytes to the remote endpoint
+    s.sendall(file_name_len.to_bytes(4, byteorder='big'))
+    s.sendall(FILE.encode())
 
-        # Wait confirmation
+    # Wait confirmation
+    confirmation = s.recv(1024)
+    if (confirmation.decode()=="createOK"):
+    # Fichero
+    # open the file to be sent
+        with open(FILE, 'rb') as f:
+            s.sendall(f.read())
+
         confirmation = s.recv(1024)
-        if (confirmation.decode()=="createOK"):
-        # Fichero
-        # open the file to be sent
-            with open(FILE, 'rb') as f:
-                s.sendall(f.read())
+        print(f'Send: {confirmation.decode()}')
+    else:
+        print("File exists is not sent")
+    # Close the socket
+    s.close()
 
-            confirmation = s.recv(1024)
-            print(f'Send: {confirmation.decode()}')
-        else:
-            print("File exists is not sent")
-        # Close the socket
-        s.close()
+
+
 
 ##########################
 # main
