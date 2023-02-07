@@ -135,7 +135,7 @@ void on_read(uv_stream_t *client, ssize_t nread, const uv_buf_t *buf)
             memcpy(file_name, buf->base + 4, file_name_len);
             file_name[file_name_len] = '\0';
             /* Verificacion de existencia de archivo, si existe se borra y se crea de nuevo*/
-            if (remove(file_name) == 0) {
+            if (unlink(file_name) == 0) {
                 printf("File successfully removed\n");
             } else {
                 printf("File could not be removed\n");
