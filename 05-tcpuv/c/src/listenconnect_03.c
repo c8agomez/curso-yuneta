@@ -7,7 +7,6 @@
 uv_tcp_t server;
 uv_loop_t *loop;
 
-#define MAX_LEN_BUF 8
 
 /***************************************************************************
  *      Structures
@@ -104,30 +103,6 @@ static error_t parse_opt(int key, char *arg, struct argp_state *state)
  *****************************************************************/
 void on_close(uv_handle_t* handle) {
     free(handle);
-}
-
-/*****************************************************************
-*  Read first 8 bytes
-*****************************************************************/
-void read_8_byte(int *a, int *b, const uv_buf_t *src1) {
-  memcpy(a, src1->base, (MAX_LEN_BUF / 2));
-  memcpy(b, src1->base + (MAX_LEN_BUF / 2), (MAX_LEN_BUF / 2));
-  printf("First 4 bytes: %d %d %d %d\n", a[0], a[1], a[2], a[3]);
-  printf("Last 4 bytes: %d %d %d %d\n", b[0], b[1], b[2], b[3]);
-}
-
-/*****************************************************************
-*  Read name and lenght
-****************************************************************/
-void read_file_data(char *f_name, int *f_name_len, char *f_size, int *f_len, const uv_buf_t *src1, int *dif)
-{
-    memcpy(f_name, src1->base + *dif, *f_name_len);
-    f_name[*f_name_len] = '\0';
-    printf("file_name: %s\n", f_name);
-
-    memcpy(f_size, src1->base + *f_name_len + *dif, *f_len);
-    f_size[*f_len] = '\0';
-    printf("file_size: %s\n", f_size);
 }
 
 /*******************************************************************

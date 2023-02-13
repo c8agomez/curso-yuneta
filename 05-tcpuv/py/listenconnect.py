@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import argparse
 import socket
+import os
 
 version = "1.0.0"
 
@@ -88,20 +89,16 @@ def listenconnect(TCP_PORT, TCP_IP, FILE,repeat):
         file_name_len = len(FILE)
         # Send the bytes to the remote endpoint
         s.sendall(file_name_len.to_bytes(4, byteorder='big'))
+
+        # Envía longitud fichero
+        file_size = os.path.getsize(FILE)
+        print("file_size:", file_size)
+        s.sendall(file_size.to_bytes(4, byteorder='big'))
+
         s.sendall(FILE.encode())
 
-        # Wait confirmation
-        confirmation = s.recv(1024)
-        if (confirmation.decode()=="createOK"):
-        # Fichero
-        # open the file to be sent
-            with open(FILE, 'rb') as f:
-                s.sendall(f.read())
-
-            confirmation = s.recv(1024)
-            print(f'Send: {confirmation.decode()}')
-        else:
-            print("File exists is not sent")
+        with open(FILE, 'rb') as f:
+            s.sendall(f.read())
         # Close the socket
         s.close()
 
